@@ -2,7 +2,7 @@ import androidx.navigation.NavHostController
 import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
 import com.example.mind_second_kotlin.shared.ui.timer.model.TimerFactory
 
-fun checkAnswer(answer: String, navController: NavHostController) {
+fun analyzeAnswer(answer: String, navController: NavHostController) {
     val task = TaskFactory.createInstance()
     val timer = TimerFactory.createInstance()
     val stateBestScore = BestScoreFactory.createInstance()

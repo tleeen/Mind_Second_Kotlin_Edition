@@ -1,15 +1,15 @@
 
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 
 class RoundScore {
-    private var roundScore =mutableStateOf(0);
+    private var roundScore = mutableIntStateOf(0);
 
     fun getRoundScore(): Int{
-        return roundScore.value;
+        return roundScore.intValue;
     }
 
     fun setRoundScore(score: Int) {
-        roundScore.value = score
+        roundScore.intValue = score
     }
 }
 

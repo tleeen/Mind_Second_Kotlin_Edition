@@ -13,7 +13,7 @@ class FunctionalTimer{
 
 
     lateinit var timer:  CountDownTimer
-    lateinit var _callback: () -> Unit
+    lateinit var callback: () -> Unit
 
     fun getWaitTime():Double{
         return waitTime.doubleValue
@@ -27,17 +27,13 @@ class FunctionalTimer{
         return percent.doubleValue;
     }
 
-    fun _setTimeStr(value: String) {
-        timeStr.value = value
+    fun setFunction(action: () -> Unit) {
+        callback = action
     }
 
-    fun setCallback(action: () -> Unit) {
-        _callback = action
-    }
-
-    fun _calculationTime() {
-        percent.doubleValue = getWaitTime() / 10.0
-        timeStr.value = String.format("%.1f",getWaitTime() % 60.0)
+    fun calculationTime() {
+        percent.doubleValue = waitTime.doubleValue / 10.0
+        timeStr.value = String.format("%.1f",waitTime.doubleValue % 60.0)
     }
 
     fun restart() {
@@ -51,7 +47,7 @@ class FunctionalTimer{
         percent.doubleValue = 1.0
         time.doubleValue = 10.0
         waitTime.doubleValue = 10.0
-        _setTimeStr("10.0")
+        timeStr.value = "10.0"
     }
 
     fun start() {
@@ -62,15 +58,15 @@ class FunctionalTimer{
             override fun onTick(millisUntilFinished: Long) {
                 localTime.doubleValue = localTime.doubleValue - 0.1
                 waitTime.doubleValue = localTime.doubleValue
-                _calculationTime()
+                calculationTime()
             }
 
             override fun onFinish() {
-                _setTimeStr("10.0")
+                timeStr.value = "10.0"
                 percent.doubleValue = 1.0
                 time.doubleValue = 10.0
                 waitTime.doubleValue = 10.0
-                _callback()
+                callback()
                 cancel()
             }
         }.start()

@@ -1,16 +1,16 @@
 package com.example.mind_second_kotlin.entities.score.model
 
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 
 class BestScore {
-    private var bestScore = mutableStateOf(0);
+    private var bestScore = mutableIntStateOf(0);
 
     fun getBestScore(): Int{
-        return bestScore.value;
+        return bestScore.intValue;
     }
 
     fun setBestScore(score: Int) {
-        bestScore.value = score
+        bestScore.intValue = score
     }
 }
 

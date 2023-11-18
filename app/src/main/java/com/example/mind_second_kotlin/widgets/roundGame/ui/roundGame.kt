@@ -1,3 +1,9 @@
+package com.example.mind_second_kotlin.widgets.roundGame.ui
+
+import Input
+import RepositoryScore
+import RoundScoreFactory
+import TaskFactory
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,27 +22,27 @@ import com.example.mind_second_kotlin.shared.ui.timer.ui.Timer
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskWidget(navController: NavHostController){
-    val Task = TaskFactory.createInstance()
-    val task = Task.getTask()
+    val taskStore = TaskFactory.createInstance()
+    val task = taskStore.getTask()
 
-    val FunctionalTimer = TimerFactory.createInstance()
-    val timer =  FunctionalTimer.getTimerStr()
-    val persent =  FunctionalTimer.getPercent()
+    val functionalTimer = TimerFactory.createInstance()
+    val timer =  functionalTimer.getTimerStr()
+    val percent =  functionalTimer.getPercent()
 
     LaunchedEffect(Unit) {
-        Task.createTask()
+        taskStore.createTask()
 
         val stateBestScore = BestScoreFactory.createInstance()
         val stateRoundScore = RoundScoreFactory.createInstance()
         stateBestScore.setBestScore(RepositoryScore.getScore())
         stateRoundScore.setRoundScore(0)
 
-        FunctionalTimer.setCallback {if (stateRoundScore.getRoundScore() > stateBestScore.getBestScore()) {
+        functionalTimer.setFunction {if (stateRoundScore.getRoundScore() > stateBestScore.getBestScore()) {
             RepositoryScore.setScore(stateRoundScore.getRoundScore())
             stateBestScore.setBestScore(stateRoundScore.getRoundScore())
         }
             navController.navigate("lose")}
-        FunctionalTimer.start()
+        functionalTimer.start()
     }
 
 
@@ -46,7 +52,7 @@ fun TaskWidget(navController: NavHostController){
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        Timer(persent, timer)
+        Timer(percent, timer)
         Text(task, fontSize = 30.sp)
         Input(navController)
     }

@@ -23,14 +23,6 @@ class Task {
         return answerForTask.value;
     }
 
-    fun setTask(value: String) {
-        task.value = value
-    }
-
-    fun setAnswerForTask(value: String) {
-        answerForTask.value = value
-    }
-
     fun createTask() {
         val operations = listOf("+", "-", "/", "*")
         val operation: Operation = when (operations[Random.nextInt(operations.size)]) {

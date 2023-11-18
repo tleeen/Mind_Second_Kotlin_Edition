@@ -33,7 +33,7 @@ fun Input(navController: NavHostController) {
             textStyle = TextStyle(fontSize=25.sp)
         )
         Button(onClick = {
-            checkAnswer(message.value, navController)
+            analyzeAnswer(message.value, navController)
             message.value = ""},
             colors = ButtonDefaults.buttonColors(Color.Gray)){
             Icon(
