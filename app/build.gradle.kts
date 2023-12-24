@@ -71,4 +71,5 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
     implementation(libs.androidx.navigation.compose)
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
 }

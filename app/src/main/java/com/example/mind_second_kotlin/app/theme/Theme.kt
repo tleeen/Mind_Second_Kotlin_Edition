@@ -1,4 +1,4 @@
-package com.example.mind_second_kotlin.shared.ui.theme
+package com.example.mind_second_kotlin.app.theme
 
 import android.app.Activity
 import android.os.Build

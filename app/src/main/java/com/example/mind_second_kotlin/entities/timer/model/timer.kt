@@ -1,4 +1,4 @@
-package com.example.mind_second_kotlin.shared.ui.timer.model
+package com.example.mind_second_kotlin.entities.timer.model
 
 import android.os.CountDownTimer
 import androidx.compose.runtime.mutableDoubleStateOf

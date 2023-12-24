@@ -1,8 +1,9 @@
+
 import androidx.navigation.NavHostController
 import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
-import com.example.mind_second_kotlin.shared.ui.timer.model.TimerFactory
+import com.example.mind_second_kotlin.entities.timer.model.TimerFactory
 
-fun analyzeAnswer(answer: String, navController: NavHostController) {
+fun analysisAnswer(answer: String, navController: NavHostController) {
     val task = TaskFactory.createInstance()
     val timer = TimerFactory.createInstance()
     val stateBestScore = BestScoreFactory.createInstance()
@@ -13,11 +14,10 @@ fun analyzeAnswer(answer: String, navController: NavHostController) {
         stateRoundScore.setRoundScore(stateRoundScore.getRoundScore() + 1)
         timer.restart()
     } else {
-        if (stateRoundScore.getRoundScore() > stateBestScore.getBestScore()) {
-            RepositoryScore.setScore(stateRoundScore.getRoundScore())
-            stateBestScore.setBestScore(stateRoundScore.getRoundScore())
-        }
-        navController.navigate("lose")
-        timer.pause()
+            if (stateRoundScore.getRoundScore() > stateBestScore.getBestScore()) {
+                stateBestScore.setBestScore(stateRoundScore.getRoundScore())
+            }
+            navController.navigate("lose")
+            timer.pause()
     }
 }

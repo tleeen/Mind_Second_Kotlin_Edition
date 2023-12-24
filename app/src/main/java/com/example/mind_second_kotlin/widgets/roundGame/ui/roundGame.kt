@@ -1,7 +1,6 @@
 package com.example.mind_second_kotlin.widgets.roundGame.ui
 
 import Input
-import RepositoryScore
 import RoundScoreFactory
 import TaskFactory
 import androidx.compose.foundation.layout.Arrangement
@@ -16,35 +15,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
-import com.example.mind_second_kotlin.shared.ui.timer.model.TimerFactory
-import com.example.mind_second_kotlin.shared.ui.timer.ui.Timer
+import com.example.mind_second_kotlin.entities.timer.model.TimerFactory
+import com.example.mind_second_kotlin.entities.timer.ui.Timer
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskWidget(navController: NavHostController){
-    val taskStore = TaskFactory.createInstance()
-    val task = taskStore.getTask()
 
+    val taskStore = TaskFactory.createInstance()
     val functionalTimer = TimerFactory.createInstance()
-    val timer =  functionalTimer.getTimerStr()
-    val percent =  functionalTimer.getPercent()
+    val stateBestScore = BestScoreFactory.createInstance()
+    val stateRoundScore = RoundScoreFactory.createInstance()
 
     LaunchedEffect(Unit) {
         taskStore.createTask()
-
-        val stateBestScore = BestScoreFactory.createInstance()
-        val stateRoundScore = RoundScoreFactory.createInstance()
-        stateBestScore.setBestScore(RepositoryScore.getScore())
         stateRoundScore.setRoundScore(0)
-
-        functionalTimer.setFunction {if (stateRoundScore.getRoundScore() > stateBestScore.getBestScore()) {
-            RepositoryScore.setScore(stateRoundScore.getRoundScore())
-            stateBestScore.setBestScore(stateRoundScore.getRoundScore())
-        }
-            navController.navigate("lose")}
-        functionalTimer.start()
+            functionalTimer.setFunction {
+                runBlocking {
+                    val bestScore = async { stateBestScore.getBestScore() }
+                    println(bestScore.await())
+                    if (stateRoundScore.getRoundScore() > stateBestScore.getBestScore()) {
+                        stateBestScore.setBestScore(stateRoundScore.getRoundScore())
+                    }
+                    navController.navigate("lose")
+                }
+            }
+            functionalTimer.start()
     }
-
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -52,8 +51,8 @@ fun TaskWidget(navController: NavHostController){
         horizontalAlignment = Alignment.CenterHorizontally
     )
     {
-        Timer(percent, timer)
-        Text(task, fontSize = 30.sp)
+        Timer(functionalTimer.getPercent(), functionalTimer.getTimerStr())
+        Text(taskStore.getTask(), fontSize = 30.sp)
         Input(navController)
     }
 }

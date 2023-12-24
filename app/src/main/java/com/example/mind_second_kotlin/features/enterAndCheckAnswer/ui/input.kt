@@ -22,7 +22,9 @@ import androidx.navigation.NavHostController
 @ExperimentalMaterial3Api
 @Composable
 fun Input(navController: NavHostController) {
+
     val message = remember{mutableStateOf("")}
+
     Row() {
         TextField(
             value = message.value,
@@ -33,7 +35,7 @@ fun Input(navController: NavHostController) {
             textStyle = TextStyle(fontSize=25.sp)
         )
         Button(onClick = {
-            analyzeAnswer(message.value, navController)
+            analysisAnswer(message.value, navController)
             message.value = ""},
             colors = ButtonDefaults.buttonColors(Color.Gray)){
             Icon(

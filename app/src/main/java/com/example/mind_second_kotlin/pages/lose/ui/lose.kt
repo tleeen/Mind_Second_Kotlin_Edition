@@ -22,11 +22,11 @@ import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
 @Composable
 fun LoseScreen(navController: NavHostController) {
 
-    val bestScore = BestScoreFactory.createInstance();
-    val bestScoreValue: String = bestScore.getBestScore().toString();
+    val bestScore = BestScoreFactory.createInstance()
+    val bestScoreValue: String = bestScore.getBestScore().toString()
 
-    val roundScore = RoundScoreFactory.createInstance();
-    val roundScoreValue: String = roundScore.getRoundScore().toString();
+    val roundScore = RoundScoreFactory.createInstance()
+    val roundScoreValue: String = roundScore.getRoundScore().toString()
 
     Column(
         modifier = Modifier.fillMaxSize(),

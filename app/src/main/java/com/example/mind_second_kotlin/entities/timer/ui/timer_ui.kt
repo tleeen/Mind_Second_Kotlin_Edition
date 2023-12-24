@@ -1,4 +1,4 @@
-package com.example.mind_second_kotlin.shared.ui.timer.ui
+package com.example.mind_second_kotlin.entities.timer.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
