@@ -5,16 +5,18 @@ import androidx.annotation.RequiresApi
 import com.example.mind_second_kotlin.shared.lib._interface.IRepositoryScore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class WebRepositoryScore : IRepositoryScore {
     @RequiresApi(34)
-    override fun getScore(): Int {
-        var result = 0
+    override suspend fun getScore(): Int = suspendCoroutine { continuation ->
         runBlocking(Dispatchers.IO) {
             val deviceId = Build.DEVICE.hashCode()
 
@@ -36,18 +38,20 @@ class WebRepositoryScore : IRepositoryScore {
 
                 val responseBody = JSONObject(response.toString())
                 val score = responseBody.getInt("score")
-                result = score
+                continuation.resume(score)
+            } else {
+                continuation.resume(0)
             }
         }
-        return result
     }
     @RequiresApi(34)
-    override fun setScore(value: Int) {
-        runBlocking(Dispatchers.IO) {
+    override suspend fun setScore(value: Int) {
             val deviceId = Build.DEVICE.hashCode()
 
             val url = URL("http://10.0.2.2:8876/api/score")
-            val connection = url.openConnection() as HttpURLConnection
+            val connection = withContext(Dispatchers.IO) {
+                url.openConnection()
+            } as HttpURLConnection
             connection.requestMethod = "PATCH"
             connection.setRequestProperty("Content-Type", "application/json")
             connection.doOutput = true
@@ -65,6 +69,5 @@ class WebRepositoryScore : IRepositoryScore {
             if (responseCode != HttpURLConnection.HTTP_OK) {
                 throw Exception("Failed to add best score. Error code: $responseCode")
             }
-        }
     }
 }

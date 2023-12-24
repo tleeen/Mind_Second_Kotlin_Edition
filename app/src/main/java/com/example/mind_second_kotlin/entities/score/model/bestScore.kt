@@ -9,13 +9,16 @@ class BestScore {
     private var repositoryScore: IRepositoryScore = FactoryScoreRepository.createInstanceRepository("api");
 
     fun getBestScore(): Int{
-        bestScore.intValue = repositoryScore.getScore()
         return bestScore.intValue
     }
 
-    fun setBestScore(score: Int) {
+    suspend fun setBestScore(score: Int) {
         repositoryScore.setScore(score)
         bestScore.intValue = score
+    }
+
+    suspend fun initBestScore(){
+        bestScore.intValue = repositoryScore.getScore()
     }
 }
 

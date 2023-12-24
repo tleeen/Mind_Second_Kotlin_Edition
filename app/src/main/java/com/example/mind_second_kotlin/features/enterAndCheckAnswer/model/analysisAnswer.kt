@@ -2,7 +2,11 @@
 import androidx.navigation.NavHostController
 import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
 import com.example.mind_second_kotlin.entities.timer.model.TimerFactory
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@OptIn(DelicateCoroutinesApi::class)
 fun analysisAnswer(answer: String, navController: NavHostController) {
     val task = TaskFactory.createInstance()
     val timer = TimerFactory.createInstance()
@@ -15,7 +19,9 @@ fun analysisAnswer(answer: String, navController: NavHostController) {
         timer.restart()
     } else {
             if (stateRoundScore.getRoundScore() > stateBestScore.getBestScore()) {
-                stateBestScore.setBestScore(stateRoundScore.getRoundScore())
+                GlobalScope.launch {
+                    stateBestScore.setBestScore(stateRoundScore.getRoundScore())
+                }
             }
             navController.navigate("lose")
             timer.pause()

@@ -23,7 +23,7 @@ import androidx.navigation.NavHostController
 @Composable
 fun Input(navController: NavHostController) {
 
-    val message = remember{mutableStateOf("")}
+    val message = remember{ mutableStateOf("") }
 
     Row() {
         TextField(

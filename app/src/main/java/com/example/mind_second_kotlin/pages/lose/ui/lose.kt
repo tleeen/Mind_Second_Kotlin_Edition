@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -22,10 +23,10 @@ import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
 @Composable
 fun LoseScreen(navController: NavHostController) {
 
-    val bestScore = BestScoreFactory.createInstance()
+    val bestScore = remember { BestScoreFactory.createInstance() }
     val bestScoreValue: String = bestScore.getBestScore().toString()
 
-    val roundScore = RoundScoreFactory.createInstance()
+    val roundScore = remember { RoundScoreFactory.createInstance() }
     val roundScoreValue: String = roundScore.getRoundScore().toString()
 
     Column(

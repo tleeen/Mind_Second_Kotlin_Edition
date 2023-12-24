@@ -9,13 +9,13 @@ object RepositoryScore : IRepositoryScore{
     preference = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
   }
 
-  override fun setScore(value: Int) {
+  override suspend fun setScore(value: Int) {
     val editor = preference.edit()
     editor.putInt("bestScore", value)
     editor.apply()
   }
 
-  override fun getScore(): Int {
+  override suspend fun getScore(): Int {
     return preference.getInt("bestScore", 0)
   }
 }
