@@ -4,16 +4,16 @@ import android.os.CountDownTimer
 import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 
-class FunctionalTimer{
+object FunctionalTimer{
 
-    var time = mutableDoubleStateOf(10.0)
-    var waitTime = mutableDoubleStateOf(10.0)
-    var percent = mutableDoubleStateOf(1.0)
-    var timeStr = mutableStateOf("10.0")
+    private var time = mutableDoubleStateOf(10.0)
+    private var waitTime = mutableDoubleStateOf(10.0)
+    private var percent = mutableDoubleStateOf(1.0)
+    private var timeStr = mutableStateOf("10.0")
 
 
     private lateinit var timer:  CountDownTimer
-    lateinit var callback: () -> Unit
+    private lateinit var callback: () -> Unit
 
     fun getTimerStr(): String{
         return timeStr.value
@@ -66,16 +66,5 @@ class FunctionalTimer{
                 cancel()
             }
         }.start()
-    }
-}
-
-object TimerFactory {
-    private var instance: FunctionalTimer? = null
-
-    fun createInstance(): FunctionalTimer {
-        if (instance === null) {
-            instance = FunctionalTimer()
-        }
-        return instance!!
     }
 }

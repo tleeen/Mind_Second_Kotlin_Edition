@@ -8,7 +8,7 @@ object RepositoryScore : IRepositoryScore{
   private lateinit var preference: SharedPreferences
 
   fun initialize(context: Context) {
-    preference = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+    preference = context.getSharedPreferences("LS", Context.MODE_PRIVATE)
   }
 
   override suspend fun setScore(value: Int) {

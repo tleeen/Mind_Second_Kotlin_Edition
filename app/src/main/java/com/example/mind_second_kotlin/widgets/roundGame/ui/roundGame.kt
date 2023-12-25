@@ -1,8 +1,5 @@
 package com.example.mind_second_kotlin.widgets.roundGame.ui
 
-import com.example.mind_second_kotlin.features.enterAndCheckAnswer.ui.Input
-import com.example.mind_second_kotlin.entities.score.model.RoundScoreFactory
-import com.example.mind_second_kotlin.entities.task.model.task.TaskFactory
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,9 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
-import com.example.mind_second_kotlin.entities.timer.model.TimerFactory
+import com.example.mind_second_kotlin.entities.score.model.BestScore
+import com.example.mind_second_kotlin.entities.score.model.RoundScore
+import com.example.mind_second_kotlin.entities.task.model.task.Task
+import com.example.mind_second_kotlin.entities.timer.model.FunctionalTimer
 import com.example.mind_second_kotlin.entities.timer.ui.Timer
+import com.example.mind_second_kotlin.features.enterAndCheckAnswer.ui.Input
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,10 +26,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun TaskWidget(navController: NavHostController){
 
-    val taskStore = remember { TaskFactory.createInstance() }
-    val functionalTimer = remember { TimerFactory.createInstance() }
-    val stateBestScore = remember { BestScoreFactory.createInstance() }
-    val stateRoundScore = remember { RoundScoreFactory.createInstance() }
+    val taskStore = remember { Task }
+    val functionalTimer = remember { FunctionalTimer }
+    val stateBestScore = remember { BestScore }
+    val stateRoundScore = remember { RoundScore }
 
     LaunchedEffect(Unit) {
         taskStore.createTask()

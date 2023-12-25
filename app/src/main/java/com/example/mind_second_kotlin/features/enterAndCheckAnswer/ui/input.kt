@@ -1,6 +1,6 @@
 package com.example.mind_second_kotlin.features.enterAndCheckAnswer.ui
 
-import analysisAnswer
+import com.example.mind_second_kotlin.features.enterAndCheckAnswer.model.analysisAnswer
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons

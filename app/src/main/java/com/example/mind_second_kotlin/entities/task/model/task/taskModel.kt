@@ -7,7 +7,7 @@ import com.example.mind_second_kotlin.entities.task.model.operations.implementat
 import com.example.mind_second_kotlin.entities.task.model.operations.implementation.Subtraction
 import kotlin.random.Random
 
-class Task {
+object Task {
     private var task = mutableStateOf("")
     private var answerForTask = mutableStateOf("")
 
@@ -34,17 +34,6 @@ class Task {
         }
         answerForTask.value = operation.getAnswerTaskOperation()
         task.value = operation.getTaskOperation()
-    }
-}
-
-object TaskFactory {
-    private var instance: Task? = null
-
-    fun createInstance(): Task {
-        if (instance === null) {
-            instance = Task()
-        }
-        return instance!!
     }
 }
 

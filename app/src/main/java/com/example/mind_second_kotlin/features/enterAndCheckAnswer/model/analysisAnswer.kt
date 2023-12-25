@@ -1,18 +1,19 @@
+package com.example.mind_second_kotlin.features.enterAndCheckAnswer.model
 
 import androidx.navigation.NavHostController
-import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
-import com.example.mind_second_kotlin.entities.score.model.RoundScoreFactory
-import com.example.mind_second_kotlin.entities.task.model.task.TaskFactory
-import com.example.mind_second_kotlin.entities.timer.model.TimerFactory
+import com.example.mind_second_kotlin.entities.score.model.BestScore
+import com.example.mind_second_kotlin.entities.score.model.RoundScore
+import com.example.mind_second_kotlin.entities.task.model.task.Task
+import com.example.mind_second_kotlin.entities.timer.model.FunctionalTimer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 fun analysisAnswer(answer: String, navController: NavHostController) {
-    val task = TaskFactory.createInstance()
-    val timer = TimerFactory.createInstance()
-    val stateBestScore = BestScoreFactory.createInstance()
-    val stateRoundScore = RoundScoreFactory.createInstance()
+    val task = Task
+    val timer = FunctionalTimer
+    val stateBestScore = BestScore
+    val stateRoundScore = RoundScore
 
     if (answer == task.getAnswerForTask()) {
         task.createTask()

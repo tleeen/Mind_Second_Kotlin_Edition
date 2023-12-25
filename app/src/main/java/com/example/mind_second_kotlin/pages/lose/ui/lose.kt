@@ -18,17 +18,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
-import com.example.mind_second_kotlin.entities.score.model.RoundScoreFactory
+import com.example.mind_second_kotlin.entities.score.model.BestScore
+import com.example.mind_second_kotlin.entities.score.model.RoundScore
 import com.example.mind_second_kotlin.shared.ui.button.ui.Button
 
 @Composable
 fun LoseScreen(navController: NavHostController) {
 
-    val bestScore = remember { BestScoreFactory.createInstance() }
+    val bestScore = remember { BestScore }
     val bestScoreValue: String = bestScore.getBestScore().toString()
 
-    val roundScore = remember { RoundScoreFactory.createInstance() }
+    val roundScore = remember { RoundScore }
     val roundScoreValue: String = roundScore.getRoundScore().toString()
 
     Column(
