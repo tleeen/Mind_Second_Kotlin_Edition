@@ -1,6 +1,6 @@
 package com.example.mind_second_kotlin.app
 
-import RepositoryScore
+import com.example.mind_second_kotlin.shared.lib.localStorage.RepositoryScore
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

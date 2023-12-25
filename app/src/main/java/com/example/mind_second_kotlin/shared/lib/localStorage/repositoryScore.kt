@@ -1,3 +1,5 @@
+package com.example.mind_second_kotlin.shared.lib.localStorage
+
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.mind_second_kotlin.shared.lib._interface.IRepositoryScore

@@ -1,7 +1,7 @@
 package com.example.mind_second_kotlin.entities.score.lib
 
 import com.example.mind_second_kotlin.shared.lib._interface.IRepositoryScore
-import RepositoryScore as LocalStorage
+import com.example.mind_second_kotlin.shared.lib.localStorage.RepositoryScore as LocalStorage
 import com.example.mind_second_kotlin.shared.api.WebRepositoryScore as API
 
 object FactoryScoreRepository {

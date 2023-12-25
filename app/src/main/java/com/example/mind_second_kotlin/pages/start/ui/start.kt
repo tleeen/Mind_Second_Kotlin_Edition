@@ -1,6 +1,5 @@
 package com.example.mind_second_kotlin.pages.start.ui
 
-import Button
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.mind_second_kotlin.shared.ui.button.ui.Button
 
 @Composable
 fun StartScreen(navController: NavHostController) {

@@ -1,4 +1,4 @@
-
+package com.example.mind_second_kotlin.entities.task.model.task
 import androidx.compose.runtime.mutableStateOf
 import com.example.mind_second_kotlin.entities.task.model.operations._interface.Operation
 import com.example.mind_second_kotlin.entities.task.model.operations.implementation.Addition
@@ -16,11 +16,11 @@ class Task {
     }
 
     fun getTask(): String {
-        return task.value;
+        return task.value
     }
 
     fun getAnswerForTask(): String {
-        return answerForTask.value;
+        return answerForTask.value
     }
 
     fun createTask() {

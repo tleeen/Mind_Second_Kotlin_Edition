@@ -1,7 +1,7 @@
 package com.example.mind_second_kotlin.app.router
 
-import GameScreen
-import LoseScreen
+import com.example.mind_second_kotlin.pages.game.ui.GameScreen
+import com.example.mind_second_kotlin.pages.lose.ui.LoseScreen
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable

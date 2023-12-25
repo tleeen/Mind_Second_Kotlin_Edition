@@ -16,11 +16,11 @@ class FunctionalTimer{
     lateinit var callback: () -> Unit
 
     fun getTimerStr(): String{
-        return timeStr.value;
+        return timeStr.value
     }
 
     fun getPercent(): Double{
-        return percent.doubleValue;
+        return percent.doubleValue
     }
 
     fun setFunction(action: () -> Unit) {

@@ -5,8 +5,8 @@ import com.example.mind_second_kotlin.entities.score.lib.FactoryScoreRepository
 import com.example.mind_second_kotlin.shared.lib._interface.IRepositoryScore
 
 class BestScore {
-    private var bestScore = mutableIntStateOf(0);
-    private var repositoryScore: IRepositoryScore = FactoryScoreRepository.createInstanceRepository("api");
+    private var bestScore = mutableIntStateOf(0)
+    private var repositoryScore: IRepositoryScore = FactoryScoreRepository.createInstanceRepository("api")
 
     fun getBestScore(): Int{
         return bestScore.intValue

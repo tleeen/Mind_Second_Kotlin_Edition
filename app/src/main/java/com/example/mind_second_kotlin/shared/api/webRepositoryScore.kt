@@ -1,6 +1,5 @@
 package com.example.mind_second_kotlin.shared.api
 
-import androidx.annotation.RequiresApi
 import com.example.mind_second_kotlin.shared.lib._interface.IRepositoryScore
 import com.example.mind_second_kotlin.shared.lib.deviceId.DeviceId
 import okhttp3.MediaType.Companion.toMediaType
@@ -12,9 +11,9 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class WebRepositoryScore : IRepositoryScore {
-    @RequiresApi(34)
+
     override suspend fun getScore(): Int = suspendCoroutine { continuation ->
-            val deviceId = DeviceId.getId()
+        val deviceId = DeviceId.getId()
 
         val client = OkHttpClient()
         val request = Request.Builder()
@@ -29,9 +28,9 @@ class WebRepositoryScore : IRepositoryScore {
             continuation.resume(score)
         }
     }
-    @RequiresApi(34)
+
     override suspend fun setScore(value: Int) {
-            val deviceId = DeviceId.getId()
+        val deviceId = DeviceId.getId()
 
         val client = OkHttpClient()
         val requestBody = JSONObject().apply {

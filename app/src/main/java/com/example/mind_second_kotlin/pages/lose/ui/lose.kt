@@ -1,4 +1,4 @@
-
+package com.example.mind_second_kotlin.pages.lose.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
+import com.example.mind_second_kotlin.entities.score.model.RoundScoreFactory
+import com.example.mind_second_kotlin.shared.ui.button.ui.Button
 
 @Composable
 fun LoseScreen(navController: NavHostController) {

@@ -1,8 +1,8 @@
 package com.example.mind_second_kotlin.widgets.roundGame.ui
 
-import Input
-import RoundScoreFactory
-import TaskFactory
+import com.example.mind_second_kotlin.features.enterAndCheckAnswer.ui.Input
+import com.example.mind_second_kotlin.entities.score.model.RoundScoreFactory
+import com.example.mind_second_kotlin.entities.task.model.task.TaskFactory
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,11 +19,10 @@ import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
 import com.example.mind_second_kotlin.entities.timer.model.TimerFactory
 import com.example.mind_second_kotlin.entities.timer.ui.Timer
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class, DelicateCoroutinesApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskWidget(navController: NavHostController){
 
