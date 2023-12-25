@@ -12,12 +12,8 @@ class FunctionalTimer{
     var timeStr = mutableStateOf("10.0")
 
 
-    lateinit var timer:  CountDownTimer
+    private lateinit var timer:  CountDownTimer
     lateinit var callback: () -> Unit
-
-    fun getWaitTime():Double{
-        return waitTime.doubleValue
-    }
 
     fun getTimerStr(): String{
         return timeStr.value;

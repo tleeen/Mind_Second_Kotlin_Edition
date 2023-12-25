@@ -18,8 +18,9 @@ import androidx.navigation.NavHostController
 import com.example.mind_second_kotlin.entities.score.model.BestScoreFactory
 import com.example.mind_second_kotlin.entities.timer.model.TimerFactory
 import com.example.mind_second_kotlin.entities.timer.ui.Timer
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class, DelicateCoroutinesApi::class)
@@ -36,14 +37,14 @@ fun TaskWidget(navController: NavHostController){
         stateRoundScore.setRoundScore(0)
             functionalTimer.setFunction {
                     if (stateRoundScore.getRoundScore() > stateBestScore.getBestScore()) {
-                        GlobalScope.launch {
+                        CoroutineScope(Dispatchers.IO).launch {
                             stateBestScore.setBestScore(stateRoundScore.getRoundScore())
                         }
                     }
                     navController.navigate("lose")
                 }
             functionalTimer.start()
-        GlobalScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             stateBestScore.initBestScore()
         }
     }

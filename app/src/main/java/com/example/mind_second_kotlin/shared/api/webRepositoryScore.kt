@@ -1,73 +1,53 @@
 package com.example.mind_second_kotlin.shared.api
 
-import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.mind_second_kotlin.shared.lib._interface.IRepositoryScore
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
+import com.example.mind_second_kotlin.shared.lib.deviceId.DeviceId
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
-import java.io.BufferedReader
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class WebRepositoryScore : IRepositoryScore {
     @RequiresApi(34)
     override suspend fun getScore(): Int = suspendCoroutine { continuation ->
-        runBlocking(Dispatchers.IO) {
-            val deviceId = Build.DEVICE.hashCode()
+            val deviceId = DeviceId.getId()
 
-            val url = URL("http://10.0.2.2:8876/api/score/$deviceId")
-            val connection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
+        val client = OkHttpClient()
+        val request = Request.Builder()
+            .url("http://192.168.0.102:8876/api/score/$deviceId")
+            .build()
 
-            val responseCode = connection.responseCode
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                val inputStream = connection.inputStream
-                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-                val response = StringBuilder()
-                var inputLine: String?
-                while (bufferedReader.readLine().also { inputLine = it } != null) {
-                    response.append(inputLine)
-                }
-                bufferedReader.close()
-                inputStream.close()
-
-                val responseBody = JSONObject(response.toString())
-                val score = responseBody.getInt("score")
-                continuation.resume(score)
-            } else {
-                continuation.resume(0)
-            }
+        client.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) continuation.resume(0)
+            val responseBody = response.body?.string()
+            val jsonObject = responseBody?.let { JSONObject(it) }
+            val score = jsonObject!!.getInt("score")
+            continuation.resume(score)
         }
     }
     @RequiresApi(34)
     override suspend fun setScore(value: Int) {
-            val deviceId = Build.DEVICE.hashCode()
+            val deviceId = DeviceId.getId()
 
-            val url = URL("http://10.0.2.2:8876/api/score")
-            val connection = withContext(Dispatchers.IO) {
-                url.openConnection()
-            } as HttpURLConnection
-            connection.requestMethod = "PATCH"
-            connection.setRequestProperty("Content-Type", "application/json")
-            connection.doOutput = true
+        val client = OkHttpClient()
+        val requestBody = JSONObject().apply {
+            put("id_phone", deviceId)
+            put("score", value)
+        }.toString().toRequestBody("application/json".toMediaType())
 
-            val data = JSONObject().apply {
-                put("id_phone", deviceId)
-                put("score", value)
-            }.toString().toByteArray()
+        val request = Request.Builder()
+            .url("http://192.168.0.102:8876/api/score")
+            .method("PATCH", requestBody)
+            .build()
 
-            connection.outputStream.use { os ->
-                os.write(data)
+        client.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) {
+                throw Exception("Failed to add best score. Error code: ${response.code}")
             }
-
-            val responseCode = connection.responseCode
-            if (responseCode != HttpURLConnection.HTTP_OK) {
-                throw Exception("Failed to add best score. Error code: $responseCode")
-            }
+        }
     }
 }
